@@ -1,0 +1,199 @@
+# ======================================================
+# RustEaster Event Configuration
+# ======================================================
+# plugin is auto configured for itemsadder item model  - if you are using custom model data you will need
+#
+# to adjust the custom-model-data-list: settings to fit your model
+# Enable to see spawn/despawn logs in console.
+debug-mode: false
+# A list of worlds where Easter eggs should not be spawned.
+blacklisted-worlds:
+  - "world_the_end"
+  - "world_nether"
+
+# General settings for the event.
+event-settings:
+  # Default duration for the event in seconds.
+  default-duration: 300
+  # The main command for the plugin (Requires restart to change).
+  # Default: easter
+  main-command: "easter"
+
+# Settings for automatically starting the event.
+auto-start:
+  enabled: true
+  # Randomized schedule (Approx. every 1-2 hours)
+  schedule:
+    - '00:15'
+    - '01:10'
+    - '03:10'
+    - '05:00'
+    - '06:45'
+    - '08:00'
+    - '09:20'
+    - '11:00'
+    - '13:35'
+    - '14:15'
+    - '15:30'
+    - '17:20'
+    - '18:50'
+    - '20:30'
+    - '22:10'
+    - '23:45'
+  duration: 300
+  min-players: 1
+
+# Settings for the egg appearance on the ground (Armor Stands).
+egg-visuals:
+  # The base material for eggs that use a CustomModelData value.
+  custom-model-base-material: PAPER
+
+  # DUAL SUPPORT LIST:
+  # If the entry has a ":" it uses the new 1.21.4 Item Model system.
+  # If it is just a number, it uses the legacy Custom Model Data system.
+  custom-model-data-list:
+    - "easter:ia_auto/yellow_egg"
+    - "easter:ia_auto/pink_egg"
+    - "easter:ia_auto/orange_egg"
+    - "easter:ia_auto/cyan_egg"
+    - "easter:ia_auto/blue_egg"
+    - "easter:ia_auto/purple_egg"
+    #- "10202" # Legacy fallback example
+    #- "10203" # Legacy fallback example
+
+  # Options: HEAD (Recommended), HAND.
+  equipment-slot: HEAD
+  # Options: NORMAL, SMALL.
+  armor-stand-size: NORMAL
+
+# Settings for picking up eggs.
+pickup-settings:
+  # 20 ticks = 1 second.
+  normal-pickup-time: 40
+  # Speed multiplier when holding the /rusteaster setitem - Easter Basket.
+  special-item-multiplier: 2.0
+
+  # The physical item for the Easter Basket (Saved via /rusteaster setitem).
+  special-pickup-item:
+    ==: org.bukkit.inventory.ItemStack
+    DataVersion: 4556
+    id: minecraft:paper
+    count: 1
+    components:
+      minecraft:item_model: '"easter:ia_auto/easter_basket"'
+      minecraft:custom_name: '{color:"white",italic:0b,text:"Easter Basket"}'
+      minecraft:custom_data: '{itemsadder:{id:"easter_basket",namespace:"easter"}}'
+      minecraft:item_name: '{color:"white",italic:0b,text:"Easter Basket"}'
+    schema_version: 1
+    #not added yet
+    #lore:
+    #  - '&7Allows you to pickup Eggs 2x Speed'
+  # Visual info for the basket item.
+  special-item-info:
+    material: PAPER
+    name: "§fEaster Basket"
+    custom-model-data: 12048
+    item-model: "easter:ia_auto/easter_basket"
+
+# Settings for egg spawning logic.
+spawning:
+  radius:
+    min: 10
+    max: 25
+  # Chance (0.0 to 1.0) per player every cycle.
+  chance-per-player: 0.5
+  # Multiplier when holding the /rusteaster setitem spawn - Spawn Booster.
+  booster-multiplier: 2.0
+  # If true, the player just needs the item in their inventory.
+  # If false, the player must have it equipped in their HELMET slot.
+  booster-works-in-inventory: false
+  # The physical item for the Spawn Booster (Saved via /rusteaster setitem spawn).
+  booster-item:
+    ==: org.bukkit.inventory.ItemStack
+    DataVersion: 4556
+    id: minecraft:paper
+    count: 1
+    components:
+      minecraft:item_model: '"easter:ia_auto/easter_bunny_ears"'
+      minecraft:custom_name: '{color:"white",italic:0b,text:"Bunny Ears"}'
+      minecraft:custom_data: '{itemsadder:{id:"easter_bunny_ears",namespace:"easter"}}'
+      minecraft:item_name: '{color:"white",italic:0b,text:"Bunny Ears"}'
+    schema_version: 1
+  booster-item-info:
+    material: PAPER
+    name: "§fBunny Ears"
+    item-model: "easter:ia_auto/easter_bunny_ears"
+
+  # How often the plugin checks to spawn new eggs (in seconds).
+  cycle-interval-seconds: 3
+  # How long an egg stays on the ground before disappearing.
+  egg-lifespan-seconds: 60
+  # Vertical offset. -1.7 places the Armor Stand head on the block surface. (hitbox for players to pickup eggs)
+  y-offset: -1.7
+
+# Sound settings (Use internal Bukkit Sound names).
+sounds:
+  event-start: "ENTITY_PLAYER_LEVELUP"
+  event-end: "ENTITY_WITHER_DEATH"
+  egg-pickup: "ENTITY_ITEM_PICKUP"
+
+# Rewards for the top 3 leaderboard players.
+rewards:
+  first-place:
+    - "easter give gold 1 {player}"
+    - "eco give {player} 1000"
+  second-place:
+    - "easter give silver 1 {player}"
+    - "eco give {player} 500"
+  third-place:
+    - "easter give bronze 1 {player}"
+    - "eco give {player} 250"
+
+# Settings for the items players hold in their inventory.
+collected-egg-items:
+  material: PAPER
+  give-physical-items: true
+  tiers:
+    default:
+      name: '&fEaster Egg'
+      item-model: "easter:ia_auto/easter_eggs"
+      #custom-model-data: 12049
+      lore:
+        - '&7A regular egg found during the event.'
+        - '&eShift-Right-Click &7to convert &c10 &7into a &6Bronze Egg&7.'
+
+    bronze:
+      name: '&6Bronze Egg'
+      item-model: "easter:ia_auto/bronze_egg"
+      #custom-model-data: 12050
+      lore:
+        - '&7A shiny bronze egg.'
+        - '&eShift-Right-Click &7to convert &c10 &7into a &7Silver Egg&7.'
+        - '&bRight-Click &7to open for loot!'
+      unboxing:
+        - "item:IRON_INGOT:5"
+        - "item:GOLD_INGOT:2:105"
+        - "cmd:eco give {player} 100"
+
+    silver:
+      name: '&7Silver Egg'
+      item-model: "easter:ia_auto/silver_egg"
+      #custom-model-data: 12051
+      lore:
+        - '&7A shimmering silver egg.'
+        - '&eShift-Right-Click &7to convert &c10 &7into a &eGold Egg&7.'
+        - '&bRight-Click &7to open for loot!'
+      unboxing:
+        - "item:{special_item}"
+        - "item:{spawn_item}"
+    gold:
+      name: '&eGold Egg'
+      item-model: "easter:ia_auto/gold_egg"
+      #custom-model-data: 12052
+      lore:
+        - '&7The ultimate golden egg!'
+        - '&bRight-Click &7to open for loot!'
+      unboxing:
+        - "item:NETHERITE_INGOT:1"
+        - "item:DIAMOND_BLOCK:1"
+
