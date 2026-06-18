@@ -1,0 +1,9 @@
+name: RustEaster
+version: 1.3
+main: org.bug.Main
+api-version: '1.21.4'
+commands:
+  easter:
+    description: Main command for RustEaster.
+    permission: rusteaster.admin
+    aliases: [rusteaster]
